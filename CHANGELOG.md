@@ -2,6 +2,15 @@
 
 All notable changes to condensed-milk.
 
+## Unreleased
+
+### Added
+
+- Expanded build-output compression for `make`, CMake configure commands,
+  and `cmake --build`, including recursive make chatter and CMake percentage
+  progress lines. Meaningful compiler output, warnings, errors, and trailing
+  build summaries remain visible.
+
 ## [1.10.0] - 2026-04-30
 
 ### Added — backend profiles (Phase 1 of vLLM/Qwen support)

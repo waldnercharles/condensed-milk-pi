@@ -28,6 +28,11 @@ const SKIP_PATTERNS: readonly RegExp[] = [
   /^\s*Collecting\s+/,
   /^\s*Using\s+(cached|previously)\s+/,
   /^\s*\[[\d/]+\]\s+/,            // [1/42] progress counters
+  /^\s*\[\s*\d+%\]\s+(?:Building|Linking|Installing|Built target)\b/i,
+  /^\s*(?:make|gmake)(?:\[\d+\])?:\s+(?:Entering|Leaving) directory\b/i,
+  /^\s*(?:make|gmake)(?:\[\d+\])?:\s+Nothing to be done\b/i,
+  /^\s*Nothing to be done\b/i,
+  /^\s*--\s+(?:The .* compiler identification is|Detecting C(?:XX|) compiler ABI info|Check for working C(?:XX|)|Configuring done|Generating done|Build files have been written)\b/i,
   /^\s*\d+%\s/,                    // percentage progress
   /^\s*\.\.\.\s*$/,                // bare dots
   /^\s*$/,                          // blank lines
@@ -146,7 +151,10 @@ function filterBuild(stdout: string, _command: string): FilterResult | null {
 const BUILD_COMMANDS = [
   "cargo build", "cargo check",
   "npm run build", "pnpm build", "pnpm run build", "yarn build",
-  "make", "cmake",
+  // Keep the more specific cmake form registered as well: this documents
+  // that `cmake --build ...` is a build (rather than configure) invocation
+  // and lets it win if command-specific filters are added later.
+  "make", "cmake --build", "cmake",
   "go build", "go install",
   "gradle", "mvn",
   "python setup.py build",

@@ -13,6 +13,9 @@ Intercepts bash command output before the model sees it and applies semantic com
 | Command | Before | After | Savings |
 |---------|--------|-------|---------|
 | `python -m pytest` | 50+ lines of progress dots, headers, timing | `pytest: 125 passed, 15 skipped in 5.6s` | ~95% |
+| `make` | Recursive directory/progress chatter | Build verdict + meaningful compiler output | ~60-90% |
+| `cmake` | Compiler detection/configuration status | Configuration verdict + meaningful output | ~60-90% |
+| `cmake --build` | Percentage/object/link progress | Build verdict + errors/warnings | ~60-90% |
 | `git status` | Branch info, staging area, working tree | `on main: 3 staged, 2 modified [file1, file2]` | ~75% |
 | `git diff` (large) | Full patch with metadata headers | Changed lines only, context collapsed | ~70% |
 | `git log` (verbose) | Author/Date/body per commit | `hash subject` per commit | ~80% |
@@ -429,7 +432,7 @@ These filters exist in [ztk](https://github.com/codejunkie99/ztk) but are intent
 | `kubectl`, `docker` | Container orchestration — add if you need it |
 | `gh` (GitHub CLI) | Low frequency |
 | `curl` JSON schema | Too risky — model often needs actual values |
-| `make`, `terraform`, `helm`, `gradle`, `mvn`, `dotnet`, etc. | 25 regex-based runtime filters for stacks we don't use. See ztk for patterns. |
+| `terraform`, `helm`, `gradle`, `mvn`, `dotnet`, etc. | Stack-specific filters beyond the supported build commands. See ztk for patterns. |
 | Session dedup (mmap) | Context retroactive compression handles this more effectively |
 
 **Contributing stack-specific filters is welcome.** The dispatch system is designed for easy extension — register a prefix and a function.
