@@ -16,6 +16,9 @@ Intercepts bash command output before the model sees it and applies semantic com
 | `make` | Recursive directory/progress chatter | Build verdict + meaningful compiler output | ~60-90% |
 | `cmake` | Compiler detection/configuration status | Configuration verdict + meaningful output | ~60-90% |
 | `cmake --build` | Percentage/object/link progress | Build verdict + errors/warnings | ~60-90% |
+| `rsync`, `wget` | Transfer/progress boilerplate | File/status summary | ~50-90% |
+| `brew install`, `bundle install`, `composer install` | Dependency download/install chatter | Install result + errors | ~50-90% |
+| `clang-format --dry-run` | Repeated formatting diagnostics | Aggregated file/rule summary | ~60-90% |
 | `git status` | Branch info, staging area, working tree | `on main: 3 staged, 2 modified [file1, file2]` | ~75% |
 | `git diff` (large) | Full patch with metadata headers | Changed lines only, context collapsed | ~70% |
 | `git log` (verbose) | Author/Date/body per commit | `hash subject` per commit | ~80% |

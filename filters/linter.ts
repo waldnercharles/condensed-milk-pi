@@ -25,6 +25,7 @@ function detectLinterType(command: string): string {
   if (/golangci-lint\b/.test(command)) return "GolangCI-Lint";
   if (/prettier\b/.test(command)) return "Prettier";
   if (/black\b/.test(command)) return "Black";
+  if (/clang-format\b/.test(command)) return "clang-format";
   return "Linter";
 }
 
@@ -56,6 +57,11 @@ function compactPath(path: string, maxLen: number): string {
 }
 
 function filterLinter(stdout: string, command: string): FilterResult | null {
+  // Plain clang-format writes formatted source to stdout; only its
+  // diagnostic/checking modes are safe to summarize.
+  if (/clang-format\b/.test(command) && !/(?:--dry-run|--Werror|--Wclang-format-violations)\b/.test(command)) {
+    return null;
+  }
   const linterType = detectLinterType(command);
   const issues: Issue[] = [];
   for (const line of stdout.split("\n")) {
@@ -109,7 +115,7 @@ const LINTER_COMMANDS = [
   "pylint", "mypy", "flake8", "black",
   "prettier", "npx prettier",
   "cargo clippy",
-  "golangci-lint",
+  "golangci-lint", "clang-format", "clang-format --dry-run", "clang-format --Werror",
 ];
 
 for (const cmd of LINTER_COMMANDS) {

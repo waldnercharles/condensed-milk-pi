@@ -132,7 +132,7 @@ const TEST_COMMANDS = [
   "npx jest", "jest", "pnpm jest",
   "mocha", "npx mocha",
   "cargo test",
-  "go test",
+  "go test", "rspec", "rake test",
 ];
 
 for (const cmd of TEST_COMMANDS) {

@@ -10,6 +10,9 @@ All notable changes to condensed-milk.
   and `cmake --build`, including recursive make chatter and CMake percentage
   progress lines. Meaningful compiler output, warnings, errors, and trailing
   build summaries remain visible.
+- Added conservative ZTK-inspired filters for `rsync`, `wget`, Homebrew,
+  Bundler, Composer, and long system listings; added RSpec/Rake aliases and
+  safe diagnostic-only support for `clang-format --dry-run`.
 
 ## [1.10.0] - 2026-04-30
 

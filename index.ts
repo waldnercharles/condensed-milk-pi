@@ -32,6 +32,7 @@ import "./filters/grep-grouping.js";
 import "./filters/build.js";
 import "./filters/test-runners.js";
 import "./filters/install.js";
+import "./filters/standard-cli.js";
 import { filterJsonOutput } from "./filters/json-schema.js";
 import {
   compressStaleToolResults,
